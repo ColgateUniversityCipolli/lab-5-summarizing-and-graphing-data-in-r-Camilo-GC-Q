@@ -76,8 +76,6 @@ box.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) +
   ylab("Feature Value") + 
   ggtitle("Boxplot Comparison of Allentown's Features")
 
-
-
 scatter.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) + 
   geom_jitter(width = 0.2, size = 3) +
   theme_bw() + 
@@ -86,6 +84,19 @@ scatter.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) +
   ylab("Feature Value") +
   ggtitle("Jittered Scatter Plot of Allentown's Features Across Artists")
 
+df.summary = df %>%
+  group_by(artist, description) %>%
+  summarize(count = n(), .groups = "drop")
 
-scatter.plot / box.plot
+outlier.plot = ggplot(df.summary, aes(x = artist, y = count, fill = description)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_bw() +
+  scale_fill_manual(values = c("Out of Range" = "red", "Outlying" = "blue",
+                               "Within Range" = "green")) +
+  xlab("Band") +
+  ylab("Count of Features")
+
+
+
+scatter.plot / box.plot / outlier.plot
 
