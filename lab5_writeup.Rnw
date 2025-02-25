@@ -46,52 +46,17 @@ This lab applied statistical analysis techniques using \texttt{tidyverse} \citep
 
 \section{Introduction}
 
-In 2018, three bands, All Get Out, The Front Bottoms and Manchester Orchestra, collaborated on the song \textit{Allentown}. The goal is the determine which band contributed more significantly to the song's composition using statistical techniques.\\
-
-\noindent This lab focuses on:
-\begin{enumerate}
-\item Extracting numerical features from Essentia's dataset.
-\item Summarizing and comparing these features across the two bands.
-\item Using \texttt{ggplot2} \citep{gg} for visualization
-\end{enumerate}
-
-\noindent By implementing box plots, scatter plots, and summary statistics I identified patterns that highlight \textit{Allentown's} similarity with each band's musical style.
+In 2018, \textit{Allentown}, a collaborative song by The Front Bottoms, Manchester Orchestra, and All Get Out, was released. The goal of this lab is to determine which band contributed more significantly to the song's composition using statistical techniques. The lab focuses on extracting numerical features from \texttt{Essentia's} dataset, summarizing and comparing these features across the three bands, and using \texttt{ggplot2} \citep{gg} for visualization. By implementing boxplots, scatter plots, and summary statistics, I identified patterns that highlight \textit{Allentown's} alignment with each band's musical style.
 
 
 \section{Methods}
 
-\subsection{Data Processing}
-\begin{itemize}
-\item The dataseet includes features such as \textbf{overall\_loudness, tempo, danceability, and spectral\_energy}
-\item Using \texttt{group\_by()} and \texttt{summarize()}, I computed:
-\begin{itemize}
-\item \textbf{Minimum and maximum values} per artist.
-\item \textbf{Lower and upper fences} ($Q_1 - 1.5 \times IQR, Q_3 + 1.5 \times IQR$) to detect outliers.
-\end{itemize}
-
-\item I applied \texttt{mutate()} to detect whether \textit{Allentown} was \textbf{out of range} or \textbf{an outlier} for each feature.
-\end{itemize}
-
-\subsection{Statistical Computation}
-\begin{itemize}
-\item The function \texttt{out()} was created to compute \textbf{summary statistics} and \textbf{outliers} for each feature.
-\item A filtered Dataframe stored the results for all the features.
-\end{itemize}
-
-\subsection{Visualization}
-\begin{itemize}
-\item Box plots: Compare \textit{Allentown's} feature statistical values to each bands distribution.
-\item Scatter plots: Highlight \textit{Allentown's} placement relative to the bands
-\end{itemize}
+The dataset includes key features such as \texttt{overall\textunderscore loudness, tempo, danceability, and emotion}. The function \texttt{out()} was developed to generalize statistical assessements across features, computing summary statistics and classifying outliers. This was done using \texttt{group\_by()} and \texttt{summarize()}. I computed minimum and maximum values per artist and determined the lower and upper fences ($Q\_1 - 1.5 \times IQR, Q\_3 + 1.5 \times IQR$) to detect outliers. I applied \texttt{mutate()} to indicate whether \textit{Allentown} was \textbf{out of range}, an \textbf{outlier}, or \textbf{within range}. A filtered DataFrame stored the statistical results for all the numerical features. Visualization of the results were created through box plots comparing \textit{Allentown's} feature values to each band's distribution and scatter plots highlighting \textit{Allentown's} placement relative to the bands. The \texttt{facet\_wrap()} function was used to arrange the plots together.
 
 
 \section{Results}
-\subsection{Key Findings}
-\begin{itemize}
-\item Overall\_loudness, tempo, and energy, align more closely with Manchester Orchestra's data
-\end{itemize}
 
-The Data Frame I created compiled 181 songs with extracted musical and sentiment features. The boxplot indicated differences in loudness across bands. The danceability vs BPM scatter plot showed variations in BPM between artists. These insights begin to provide a foundation for determining which band's style aligns most with "Allentown".
+Analysis of teh dataset reveals that \textit{Allentown's} \texttt{overall\_loudness, tempo, danceability, and emotion} align more closely with Manchester Orchesta's style.
 
 
 \section{Discussion}
