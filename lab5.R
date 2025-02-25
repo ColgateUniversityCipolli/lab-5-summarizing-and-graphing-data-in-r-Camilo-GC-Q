@@ -10,6 +10,7 @@ allentown = read.csv("data/essentia.data.allentown.csv")
 # help(quantile)
 # help(summarize)
 # help(mutate)
+help(ggplot)
 view(data1)
 
 # Step 1
@@ -63,15 +64,15 @@ df.plot = df %>%
   filter(feature %in% features) %>%
   select(artist, feature, LF, UF, min, max, allentown.val)
 
-scatter.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) + 
-  geom_point(size = 3, color = "red") + 
-  theme_bw() + 
-  facet_wrap(~feature, scales = "free") +
-  xlab("Artist") +
-  ylab("Feature Value") +
-  ggtitle("Comparison of Allentown's Features Across Artists")
+# scatter.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) + 
+#   geom_point(size = 3, color = "red") + 
+#   theme_bw() + 
+#   facet_wrap(~feature, scales = "free") +
+#   xlab("Artist") +
+#   ylab("Feature Value") +
+#   ggtitle("Comparison of Allentown's Features Across Artists")
 
-boxplot.graph = ggplot(df_plot, aes(x = artist, y = allentown.val)) +
+box.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) +
   geom_boxplot(aes(ymin = min, lower = LF, middle = (LF+UF) / 2, upper = UF, ymax = max),
                stat = "identity", width = 0.3) + 
   geom_point(size = 3, color = "red") +
@@ -80,12 +81,33 @@ boxplot.graph = ggplot(df_plot, aes(x = artist, y = allentown.val)) +
   xlab("Artist") + 
   ylab("Feature Value") + 
   ggtitle("Boxplot Comparison of Allentown's Features")
+# 
+# bar.plot = ggplot(df.plot, aes(x = artist, y = allentown.val, fill = feature)) +
+#   geom_bar(stat = "identity", position = "dodge") +
+#   theme_bw() +
+#   facet_wrap(~feature, scales = "free") +
+#   xlab("Artist") +
+#   ylab("Feature Value") +
+#   ggtitle("Bar Plot of Allentown's Features Across Artists")
 
-violin_boxplot
+scatter.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) + 
+  geom_jitter(width = 0.2, size = 3) +  # Adds slight randomness to avoid overlap
+  theme_bw() + 
+  facet_wrap(~feature, scales = "free") + 
+  xlab("Artist") +
+  ylab("Feature Value") +
+  ggtitle("Jittered Scatter Plot of Allentown's Features Across Artists")
 
-all.plots = boxplot
+boxplot.graph <- ggplot(df.plot, aes(x = artist, y = allentown.val)) +
+  geom_boxplot(aes(y = allentown.val, group = artist), fill = "lightblue", alpha = 0.5) +  
+  geom_point(size = 3, color = "red") +  # Highlight Allentown
+  theme_bw() + 
+  facet_wrap(~feature, scales = "free") +
+  xlab("Artist") + 
+  ylab("Feature Value") + 
+  ggtitle("Boxplot Comparison of Allentown's Features")
 
-print(all.plots)
 
+scatter.plot / box.plot / bar.plot
 
 
