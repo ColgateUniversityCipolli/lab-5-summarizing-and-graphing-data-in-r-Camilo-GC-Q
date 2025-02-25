@@ -83,7 +83,7 @@ violin.boxplot = ggplot(df.plot, aes(x = artist, y = allentown.val)) +
   facet_wrap(~feature, scales = "free", drop = FALSE) +
   xlab("Artist") +
   ylab("Feature Value") +
-  ggtitle("Violin Boxplot of Allentown vs. Artists") +
+  ggtitle("Violin Boxplot of Allentown vs. Artists")
 
 
 scatter.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) + 

@@ -106,14 +106,14 @@ In 2018, three bands, All Get Out, The Front Bottoms and Manchester Orchestra, c
 \item Using \texttt{ggplot2} for visualization
 \end{enumerate}
 
-By implementing box plots, scatter plots, and summary statistics I identified patterns that highlight \textit{Allentown's} similarity with each band's musical style.
+\noindent By implementing box plots, scatter plots, and summary statistics I identified patterns that highlight \textit{Allentown's} similarity with each band's musical style.
 
 
 \section{Methods}
 
 \subsection{Data Processing}
 \begin{itemize}
-\item The dataseet includes features such as \textbf{loudness, tempo, danceability, and energy}
+\item The dataseet includes features such as \textbf{overall\_loudness, tempo, danceability, and spectral\_energy}
 \item Using \texttt{group\_by()} and \texttt{summarize()}, I computed:
 \begin{itemize}
 \item \textbf{Minimum and maximum values} per artist.
@@ -137,6 +137,10 @@ By implementing box plots, scatter plots, and summary statistics I identified pa
 
 
 \section{Results}
+\subsection{Key Findings}
+\begin{itemize}
+\item Overall\_loudness, tempo, and energy, align more closely with Manchester Orchestra's data
+\end{itemize}
 
 The Data Frame I created compiled 181 songs with extracted musical and sentiment features. The boxplot indicated differences in loudness across bands. The danceability vs BPM scatter plot showed variations in BPM between artists. These insights begin to provide a foundation for determining which band's style aligns most with "Allentown".
 
