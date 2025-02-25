@@ -1,5 +1,7 @@
 # install.packages("tidyverse")
 library(tidyverse)
+library(patchwork)
+library(ggplot2)
 
 # Step 1
 data1 = read.csv("data/essentia.data.csv")
@@ -10,6 +12,7 @@ allentown = read.csv("data/essentia.data.allentown.csv")
 # help(mutate)
 view(data1)
 
+# Step 1
 
 out = function(data, feature){
   summary = data %>%
@@ -35,6 +38,8 @@ out = function(data, feature){
   return(summary)
 }
 
+# Step 2
+
 numeric = names(data1)[sapply(data1, is.numeric)]
 df = data.frame()
 
@@ -45,4 +50,22 @@ for (col in numeric){
 }
 
 view(df)
+
+# Step 3
+help(print)
+latex.table = xtable(df)
+
+# Step 4
+
+ggplot(data = data1, aes(x = artist, y = value, fill = statistic)) + 
+  geom_col(position = "dodge") +
+  facet_wrap(~feature, scales = "free") +
+  theme_minimal +
+  xlab("Artist") +
+  ylab("Value")
+
+
+  
+
+
 
