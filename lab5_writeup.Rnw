@@ -39,7 +39,7 @@
 
 \begin{multicols}{2}
 \begin{abstract}
-This lab applied statistical analysis techniques using \texttt{tidyverse} in \texttt{R} to determine which band has the largest influence on the collaborative song \textit{Allentown} by the All Get Out, The Front Bottoms, and Manchester Orchestra. Using datasets sets from \texttt{Essentia} and \texttt{LIWC}, I extract musical features to classify the song's similarity to each band. The analysis utilizes \textbf{outlier detection, summary statistics, and data visualization techniques} to provide insights
+This lab applied statistical analysis techniques using \texttt{tidyverse} \citep{tidyverse} in \texttt{R} to determine which band has the largest influence on the collaborative song \textit{Allentown} by the All Get Out, The Front Bottoms, and Manchester Orchestra. Using datasets sets from \texttt{Essentia} \citep{essentia} and \texttt{LIWC} \citep{liwc}, I extract musical features to classify the song's similarity to each band. The analysis utilizes \textbf{outlier detection, summary statistics, and data visualization techniques} to provide insights
 \end{abstract}
 
 \noindent \textbf{Keywords:} Statistical analysis; Data visualization; Outlier detection; \texttt{tidyverse}; Musical feature
@@ -52,7 +52,7 @@ In 2018, three bands, All Get Out, The Front Bottoms and Manchester Orchestra, c
 \begin{enumerate}
 \item Extracting numerical features from Essentia's dataset.
 \item Summarizing and comparing these features across the two bands.
-\item Using \texttt{ggplot2} for visualization
+\item Using \texttt{ggplot2} \citep{gg} for visualization
 \end{enumerate}
 
 \noindent By implementing box plots, scatter plots, and summary statistics I identified patterns that highlight \textit{Allentown's} similarity with each band's musical style.
