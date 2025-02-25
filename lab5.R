@@ -57,15 +57,35 @@ latex.table = xtable(df)
 
 # Step 4
 
-ggplot(data = data1, aes(x = artist, y = value, fill = statistic)) + 
-  geom_col(position = "dodge") +
+features = c("loudness", "tempo", "danceability", "energy")
+
+df.plot = df %>%
+  filter(feature %in% features) %>%
+  select(artist, feature, LF, UF, min, max, allentown.val)
+
+scatter.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) + 
+  geom_point(size = 3, color = "red") + 
+  theme_bw() + 
   facet_wrap(~feature, scales = "free") +
-  theme_minimal +
   xlab("Artist") +
-  ylab("Value")
+  ylab("Feature Value") +
+  ggtitle("Comparison of Allentown's Features Across Artists")
 
+boxplot.graph = ggplot(df_plot, aes(x = artist, y = allentown.val)) +
+  geom_boxplot(aes(ymin = min, lower = LF, middle = (LF+UF) / 2, upper = UF, ymax = max),
+               stat = "identity", width = 0.3) + 
+  geom_point(size = 3, color = "red") +
+  theme_bw() + 
+  facet_wrap(~feature, scales = "free") +
+  xlab("Artist") + 
+  ylab("Feature Value") + 
+  ggtitle("Boxplot Comparison of Allentown's Features")
 
-  
+violin_boxplot
+
+all.plots = boxplot
+
+print(all.plots)
 
 
 
