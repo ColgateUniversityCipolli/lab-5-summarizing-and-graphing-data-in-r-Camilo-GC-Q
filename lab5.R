@@ -64,14 +64,6 @@ df.plot = df %>%
   filter(feature %in% features) %>%
   select(artist, feature, LF, UF, min, max, allentown.val)
 
-# scatter.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) + 
-#   geom_point(size = 3, color = "red") + 
-#   theme_bw() + 
-#   facet_wrap(~feature, scales = "free") +
-#   xlab("Artist") +
-#   ylab("Feature Value") +
-#   ggtitle("Comparison of Allentown's Features Across Artists")
-
 box.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) +
   geom_boxplot(aes(ymin = min, lower = LF, middle = (LF+UF) / 2, upper = UF, ymax = max),
                stat = "identity", width = 0.3) + 
@@ -81,33 +73,26 @@ box.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) +
   xlab("Artist") + 
   ylab("Feature Value") + 
   ggtitle("Boxplot Comparison of Allentown's Features")
-# 
-# bar.plot = ggplot(df.plot, aes(x = artist, y = allentown.val, fill = feature)) +
-#   geom_bar(stat = "identity", position = "dodge") +
-#   theme_bw() +
-#   facet_wrap(~feature, scales = "free") +
-#   xlab("Artist") +
-#   ylab("Feature Value") +
-#   ggtitle("Bar Plot of Allentown's Features Across Artists")
+
+violin.boxplot = ggplot(df.plot, aes(x = artist, y = allentown.val)) +
+  geom_violin(aes(group = artist), fill = "grey80") +
+  geom_boxplot(width = 0.1, fill = "white") +
+  geom_point(size = 3, color = "red") +
+  theme_bw() +
+  facet_wrap(~feature, scales = "free") +
+  xlab("Artist") +
+  ylab("Feature Value") +
+  ggtitle("Violin Boxplot of Allentown vs. Artists") +
+
 
 scatter.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) + 
-  geom_jitter(width = 0.2, size = 3) +  # Adds slight randomness to avoid overlap
+  geom_jitter(width = 0.2, size = 3) +
   theme_bw() + 
   facet_wrap(~feature, scales = "free") + 
   xlab("Artist") +
   ylab("Feature Value") +
   ggtitle("Jittered Scatter Plot of Allentown's Features Across Artists")
 
-boxplot.graph <- ggplot(df.plot, aes(x = artist, y = allentown.val)) +
-  geom_boxplot(aes(y = allentown.val, group = artist), fill = "lightblue", alpha = 0.5) +  
-  geom_point(size = 3, color = "red") +  # Highlight Allentown
-  theme_bw() + 
-  facet_wrap(~feature, scales = "free") +
-  xlab("Artist") + 
-  ylab("Feature Value") + 
-  ggtitle("Boxplot Comparison of Allentown's Features")
 
-
-scatter.plot / box.plot / bar.plot
-
+scatter.plot / box.plot / violin.boxplot
 
