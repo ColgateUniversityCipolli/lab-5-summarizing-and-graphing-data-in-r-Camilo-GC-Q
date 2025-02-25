@@ -102,17 +102,33 @@ In 2018, \textit{Allentown}, a collaborative song by The Front Bottoms, Manchest
 
 \section{Methods}
 
-The dataset includes key features such as \texttt{overall\textunderscore loudness, tempo, danceability, and emotion}. The function \texttt{out()} was developed to generalize statistical assessements across features, computing summary statistics and classifying outliers. This was done using \texttt{group\_by()} and \texttt{summarize()}. I computed minimum and maximum values per artist and determined the lower and upper fences ($Q\_1 - 1.5 \times IQR, Q\_3 + 1.5 \times IQR$) to detect outliers. I applied \texttt{mutate()} to indicate whether \textit{Allentown} was \textbf{out of range}, an \textbf{outlier}, or \textbf{within range}. A filtered DataFrame stored the statistical results for all the numerical features. Visualization of the results were created through box plots comparing \textit{Allentown's} feature values to each band's distribution and scatter plots highlighting \textit{Allentown's} placement relative to the bands. The \texttt{facet\_wrap()} function was used to arrange the plots together.
+The dataset includes key features such as \texttt{overall\textunderscore loudness, tempo, danceability, and emotion}. The function \texttt{out()} was developed to compute summary statistics and classifying outliers. This was done using \texttt{group\_by()} and \texttt{summarize()}. I computed minimum and maximum values per artist and determined the lower and upper fences ($Q\_1 - 1.5 \times IQR, Q\_3 + 1.5 \times IQR$) to detect outliers. I applied \texttt{mutate()} to indicate whether \textit{Allentown} was \textbf{out of range}, an \textbf{outlier}, or \textbf{within range}. A filtered Data Frame stored the statistical results for all the numerical features.\\
+
+\noindent To begin the analysis of the data I used the \texttt{xtable} \citep{xtab} package to generate a summary table of numerical features. This table provides a detailed comparison of \textit{Allentown's} values against the lower and upper fences showing whether the song falls within range, is an outlier, or is out of range for each feature across the three bands.\\
+
+\noindent Visualization of the results were created through box plots comparing \textit{Allentown's} feature values to each band's distribution and scatter plots highlighting \textit{Allentown's} placement relative to the bands. The \texttt{facet\_wrap()} function was used to arrange the plots together.
 
 
 \section{Results}
 
-Analysis of teh dataset reveals that \textit{Allentown's} \texttt{overall\_loudness, tempo, danceability, and emotion} align more closely with Manchester Orchesta's style.
+The jittered scatter plots provide a visual representation of how \textit{Allentown's} musical features compare to those of the three bands. For \texttt{danceability}, \textit{Allentown's} aligns most closely with All Get Out, as indicated by its proximity to the band's typical range. The \texttt{emotion} feature, however, places \textit{Allentown} closer to The Front Bottoms. The \texttt{overall\_loudness} metric is positioned near Manchester Orchestra, but remains within the general range of all three bands. Lastly, \textit{Allentown's} tempo is most similar to The Front Bottoms, thought it is also relatively close to Manchester Orchestra. \\
 
+\noindent The box plots further clarify the extent to which \textit{Allentown's} features deviate from each band's typical range. \texttt{Danceability} and \texttt{emotion} fall outside the interquartile range but remain within the overall spread, suggesting that \textit{Allentown} exhibits moderate stylistic differences from each band. The \texttt{overall\_loudness} and \texttt{tempo} features, on the other hand, are situated near the lower quartile across all three bands, reinforcing the idea that \textit{Allentown} blends characteristics from multiple sources rather than aligning strongly with one particular group.\\
+
+\noindent The final bar plot categorizes \textit{Allentown's} features based on their classification as out of range, outlying, or within range. Most features fall within the expected distribution for all three bands, indicating a high level of stylistic integration. However, a small proportion of features are classified as outliers across all bands, suggesting that \textit{Allentown} introduces unique elements that differentiate it from the contributing artists' historical compositions.
 
 \section{Discussion}
 
-In the future, plots with more variables could be made to better visualize the correlations between artists differing audio features.
+My analysis suggests that \textit{Allentown} integrates elements from all three bands. The \texttt{tempo} and \texttt{emotion} metrics are closest to The Front Bottoms and Manchester Orchestra, while \texttt{danceability} aligns more with All Get Out. The box plots, scatter plots, and summary table reinforce that \textit{Allentown} is a blend of multiple influences rather than strictly fitting within one band's historical musical style.\\
+
+\noindent The bar plot results suggest that \textit{Allentown's} features are least out of range when compared to Manchester Orchestra's historical compositions. This implies that while elements of all three bands are present, \textit{Allentown's} overall structure and musical characteristics most closely align with Manchester Orchestra. The Front Bottoms also exhibit strong influence, particularly on \texttt{tempo} and \texttt{emotion}, while All Get Out's contribution is reflected in \texttt{danceability}. However, since Manchester Orchestra has the fewest features classified as \textquotedblleft Out of Range \textquotedblright, it is the best overall match for \textit{Allentown}. \\
+
+\noindent Thus, based on the statistical alignment of \textit{Allentown's} primary musical attributes, Manchester Orchestra appears to have contributed the most to the song's composition, though the song retains influences from all three bands.
+
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-1-1} 
+\end{knitrout}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bibliography
@@ -129,7 +145,6 @@ In the future, plots with more variables could be made to better visualize the c
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \onecolumn
-\section{Appendix}
 
 
 \end{document}
