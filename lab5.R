@@ -1,29 +1,48 @@
-install.packages("tidyverse")
+# install.packages("tidyverse")
 library(tidyverse)
 
 # Step 1
 data1 = read.csv("data/essentia.data.csv")
 allentown = read.csv("data/essentia.data.allentown.csv")
 # help(group_by)
-help(quantile)
-help(summarize)
-help(mutate)
-view(data)
+# help(quantile)
+# help(summarize)
+# help(mutate)
+view(data1)
 
 
 out = function(data, feature){
-  data |>
-    group_by(artist) |>
-    summarize(min = min({{feature}}, na.rm = TRUE), LF = median({{feature}}, na.rm = TRUE) - 2*IQR({{feature}}, na.rm = TRUE), UF = median({{feature}}, na.rm = TRUE) + 2*IQR({{feature}}, na.rm = TRUE), max = max({{feature}}, na.rm = TRUE)) |>
-    mutate(out.of.range = allentown$feature > max | allentown$feature < min) |>
-    mutate(unusual = allentown$feature < LF | allentown$feature > UF) |>
-    mutate(description = case_when(out.of.range == TRUE ~ "Out of Range",
-                                   unusual == TRUE ~ "Outlying",
-                                   TRUE ~ "Within Range"))
+  summary = data %>%
+    group_by(artist) %>%
+    summarize(
+      min = min(data[[feature]], na.rm = TRUE),
+      LF = quantile(data[[feature]], 0.25, na.rm = TRUE),
+      UF = quantile(get(feature), 0.75, na.rm = TRUE),
+      max = max(get(feature), na.rm = TRUE),
+    ) %>%
+    
+    mutate(
+      allentown.val = allentown %>% pull(get(feature)),
+      out.of.range = allentown.val < min | allentown.val > max,
+      unusual = allentown.val < LF | allentown.val > UF,
+      description = case_when(
+        out.of.range ~ "Out of Range",
+        unusual ~ "Outlying",
+        TRUE ~ "Within Range"
+      )
+    )
+    
+  return(summary)
 }
 
-for (col in colnames(data1)){
-  if(is.numeric(data1[[col]])){
-    out1 = out(data1, col)
-  }
+numeric = names(data1)[sapply(data1, is.numeric)]
+df = data.frame()
+
+for (col in numeric){
+  first = out(data1, col)
+  first$feature = col
+  df = bind_rows(df, first)
 }
+
+view(df)
+
