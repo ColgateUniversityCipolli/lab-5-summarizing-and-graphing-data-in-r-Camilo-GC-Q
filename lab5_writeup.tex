@@ -1,0 +1,166 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage{amsmath} %This allows me to use the align functionality.
+                     %If you find yourself trying to replicate
+                     %something you found online, ensure you're
+                     %loading the necessary packages!
+\usepackage{amsfonts}%Math font
+\usepackage{graphicx}%For including graphics
+\usepackage{hyperref}%For Hyperlinks
+\usepackage[shortlabels]{enumitem}% For enumerated lists with labels specified
+                                  % We had to run tlmgr_install("enumitem") in R
+\hypersetup{colorlinks = true,citecolor=black} %set citations to have black (not green) color
+\usepackage{natbib}        %For the bibliography
+\setlength{\bibsep}{0pt plus 0.3ex}
+\bibliographystyle{apalike}%For the bibliography
+\usepackage[margin=0.50in]{geometry}
+\usepackage{float}
+\usepackage{multicol}
+
+%fix for figures
+\usepackage{caption}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\vspace{-1in}
+\title{Lab 5 -- MATH 240 -- Computational Statistics}
+
+\author{
+  Camilo \\
+  Colgate University  \\
+  Mathematics Department  \\
+  {\tt cgranadacossio@colgate.edu}
+}
+
+\date{2/25/25}
+
+\maketitle
+
+\begin{multicols}{2}
+\begin{abstract}
+This lab applied statistical analysis techniques using \texttt{tidyverse} in \texttt{R} to determine which band has the largest influence on the collaborative song \textit{Allentown} by the All Get Out, The Front Bottoms, and Manchester Orchestra. Using datasets sets from \texttt{Essentia} and \texttt{LIWC}, I extract musical features to classify the song's similarity to each band. The analysis utilizes \textbf{outlier detection, summary statistics, and data visualization techniques} to provide insights
+\end{abstract}
+
+\noindent \textbf{Keywords:} Statistical analysis; Data visualization; Outlier detection; \texttt{tidyverse}; Musical feature
+
+\section{Introduction}
+
+In 2018, three bands, All Get Out, The Front Bottoms and Manchester Orchestra, collaborated on the song \textit{Allentown}. The goal is the determine which band contributed more significantly to the song's composition using statistical techniques.\\
+
+\noindent This lab focuses on:
+\begin{enumerate}
+\item Extracting numerical features from Essentia's dataset.
+\item Summarizing and comparing these features across the two bands.
+\item Using \texttt{ggplot2} for visualization
+\end{enumerate}
+
+By implementing box plots, scatter plots, and summary statistics I identified patterns that highlight \textit{Allentown's} similarity with each band's musical style.
+
+
+\section{Methods}
+
+\subsection{Data Processing}
+\begin{itemize}
+\item The dataseet includes features such as \textbf{loudness, tempo, danceability, and energy}
+\item Using \texttt{group\_by()} and \texttt{summarize()}, I computed:
+\begin{itemize}
+\item \textbf{Minimum and maximum values} per artist.
+\item \textbf{Lower and upper fences} ($Q_1 - 1.5 \times IQR, Q_3 + 1.5 \times IQR$) to detect outliers.
+\end{itemize}
+
+\item I applied \texttt{mutate()} to detect whether \textit{Allentown} was \textbf{out of range} or \textbf{an outlier} for each feature.
+\end{itemize}
+
+\subsection{Statistical Computation}
+\begin{itemize}
+\item The function \texttt{out()} was created to compute \textbf{summary statistics} and \textbf{outliers} for each feature.
+\item A filtered Dataframe stored the results for all the features.
+\end{itemize}
+
+\subsection{Visualization}
+\begin{itemize}
+\item Box plots: Compare \textit{Allentown's} feature statistical values to each bands distribution.
+\item Scatter plots: Highlight \textit{Allentown's} placement relative to the bands
+\end{itemize}
+
+
+\section{Results}
+
+The Data Frame I created compiled 181 songs with extracted musical and sentiment features. The boxplot indicated differences in loudness across bands. The danceability vs BPM scatter plot showed variations in BPM between artists. These insights begin to provide a foundation for determining which band's style aligns most with "Allentown".
+
+
+\section{Discussion}
+
+In the future, plots with more variables could be made to better visualize the correlations between artists differing audio features.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{2em}
+
+\begin{tiny}
+\bibliography{bib}
+\end{tiny}
+\end{multicols}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\onecolumn
+\section{Appendix}
+
+
+\end{document}
