@@ -62,7 +62,7 @@ By implementing box plots, scatter plots, and summary statistics I identified pa
 
 \subsection{Data Processing}
 \begin{itemize}
-\item The dataseet includes features such as \textbf{loudness, tempo, danceability, and energy}
+\item The dataseet includes features such as \textbf{overall_loudness, tempo, danceability, and spectral_energy}
 \item Using \texttt{group\_by()} and \texttt{summarize()}, I computed:
 \begin{itemize}
 \item \textbf{Minimum and maximum values} per artist.
@@ -86,6 +86,10 @@ By implementing box plots, scatter plots, and summary statistics I identified pa
 
 
 \section{Results}
+\subssection{Key Findings}
+\begin{itemize}
+\item Overall_loudness, tempo, and energy, align more closely with Manchester Orchestra's data
+
 
 The Data Frame I created compiled 181 songs with extracted musical and sentiment features. The boxplot indicated differences in loudness across bands. The danceability vs BPM scatter plot showed variations in BPM between artists. These insights begin to provide a foundation for determining which band's style aligns most with "Allentown".
 

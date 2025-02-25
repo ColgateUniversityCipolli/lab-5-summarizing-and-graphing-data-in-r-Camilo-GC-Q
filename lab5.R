@@ -50,6 +50,7 @@ for (col in numeric){
   df = bind_rows(df, first)
 }
 
+
 view(df)
 
 # Step 3
@@ -58,7 +59,7 @@ latex.table = xtable(df)
 
 # Step 4
 
-features = c("loudness", "tempo", "danceability", "energy")
+features = c("overall_loudness", "tempo", "danceability", "spectral_energy")
 
 df.plot = df %>%
   filter(feature %in% features) %>%
@@ -69,7 +70,7 @@ box.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) +
                stat = "identity", width = 0.3) + 
   geom_point(size = 3, color = "red") +
   theme_bw() + 
-  facet_wrap(~feature, scales = "free") +
+  facet_wrap(~feature, scales = "free", drop = FALSE) +
   xlab("Artist") + 
   ylab("Feature Value") + 
   ggtitle("Boxplot Comparison of Allentown's Features")
@@ -79,7 +80,7 @@ violin.boxplot = ggplot(df.plot, aes(x = artist, y = allentown.val)) +
   geom_boxplot(width = 0.1, fill = "white") +
   geom_point(size = 3, color = "red") +
   theme_bw() +
-  facet_wrap(~feature, scales = "free") +
+  facet_wrap(~feature, scales = "free", drop = FALSE) +
   xlab("Artist") +
   ylab("Feature Value") +
   ggtitle("Violin Boxplot of Allentown vs. Artists") +
@@ -88,7 +89,7 @@ violin.boxplot = ggplot(df.plot, aes(x = artist, y = allentown.val)) +
 scatter.plot = ggplot(df.plot, aes(x = artist, y = allentown.val)) + 
   geom_jitter(width = 0.2, size = 3) +
   theme_bw() + 
-  facet_wrap(~feature, scales = "free") + 
+  facet_wrap(~feature, scales = "free", drop = FALSE) + 
   xlab("Artist") +
   ylab("Feature Value") +
   ggtitle("Jittered Scatter Plot of Allentown's Features Across Artists")
